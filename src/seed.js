@@ -51,10 +51,10 @@ ARMORY 命令行客户端，支持 Windows / macOS / Linux 多平台，提供用
 
 \`\`\`bash
 # Linux / macOS
-curl -fsSL http://10.12.7.250/acohub/install.sh | bash
+curl -fsSL https://armory.example.com/install.sh | bash
 
 # Windows (PowerShell)
-irm http://10.12.7.250/acohub/install.ps1 | iex
+irm https://armory.example.com/install.ps1 | iex
 \`\`\`
 
 ## 常用命令
@@ -395,7 +395,7 @@ function buildSeedDb() {
       userId: user.id,
       username: user.username,
       time: fmtTime(time),
-      ip: `10.12.7.${20 + Math.floor(rnd() * 60)}`,
+      ip: `192.0.2.${20 + Math.floor(rnd() * 60)}`,
     });
   };
 
