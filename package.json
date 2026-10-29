@@ -1,0 +1,19 @@
+{
+  "name": "depot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Depot - 轻量级企业制品仓库平台（零依赖，Node.js 内置模块实现）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "reset": "node scripts/reset.js",
+    "test": "bash scripts/smoke.sh",
+    "test:ui": "node scripts/ui-smoke.mjs",
+    "shots": "node scripts/shots.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
