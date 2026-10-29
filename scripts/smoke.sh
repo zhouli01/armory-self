@@ -29,7 +29,7 @@ check "空间详情含成员" '"members"' "$(curl -s $BASE/api/namespaces/sylixo
 NEWNS="smoke-$RANDOM"
 check "创建空间" "$NEWNS" "$(curl -s -X POST $BASE/api/namespaces -H "$AUTH" -H 'Content-Type: application/json' -d "{\"namespaceId\":\"$NEWNS\",\"description\":\"冒烟测试空间\"}")"
 check "重复空间被拒" 'NAMESPACE_EXISTS' "$(curl -s -X POST $BASE/api/namespaces -H "$AUTH" -H 'Content-Type: application/json' -d "{\"namespaceId\":\"$NEWNS\"}")"
-check "添加成员" '"username":"zhouli"' "$(curl -s -X POST $BASE/api/namespaces/$NEWNS/members -H "$AUTH" -H 'Content-Type: application/json' -d '{"username":"zhouli","roleId":"ORG_MEMBER"}')"
+check "添加成员" '"username":"zhangsan"' "$(curl -s -X POST $BASE/api/namespaces/$NEWNS/members -H "$AUTH" -H 'Content-Type: application/json' -d '{"username":"zhangsan","roleId":"ORG_MEMBER"}')"
 check "调整角色" 'ORG_ADMIN' "$(curl -s -X PUT $BASE/api/namespaces/$NEWNS/members/2 -H "$AUTH" -H 'Content-Type: application/json' -d '{"roleId":"ORG_ADMIN"}')"
 check "成员被移除" '"list":\[{"userId":1' "$(curl -s -X DELETE $BASE/api/namespaces/$NEWNS/members/2 -H "$AUTH")"
 check "空间改名" "$NEWNS-x" "$(curl -s -X PUT $BASE/api/namespaces/$NEWNS -H "$AUTH" -H 'Content-Type: application/json' -d "{\"namespaceId\":\"$NEWNS-x\"}")"
@@ -79,13 +79,13 @@ check "概览命名空间口径与包分布一致（$PKG_NS）" "\"namespaces\":
 check "元数据" '"platforms"' "$(curl -s $BASE/api/meta -H "$AUTH")"
 
 echo "== 7. 权限边界 =="
-UTOKEN=$(curl -s -X POST $BASE/api/auth/login -H 'Content-Type: application/json' -d '{"username":"zhouli","password":"user123"}' | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
+UTOKEN=$(curl -s -X POST $BASE/api/auth/login -H 'Content-Type: application/json' -d '{"username":"zhangsan","password":"user123"}' | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
 UAUTH="Authorization: Bearer $UTOKEN"
-FTOKEN=$(curl -s -X POST $BASE/api/auth/login -H 'Content-Type: application/json' -d '{"username":"fanwenting","password":"user123"}' | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
+FTOKEN=$(curl -s -X POST $BASE/api/auth/login -H 'Content-Type: application/json' -d '{"username":"lisi","password":"user123"}' | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
 FAUTH="Authorization: Bearer $FTOKEN"
 check "普通用户不能删他人空间" 'FORBIDDEN\|不是该空间的成员' "$(curl -s -X DELETE $BASE/api/namespaces/sylixos-middleware -H "$UAUTH")"
-check "非空间成员看不到受限包" 'FORBIDDEN' "$(curl -s $BASE/api/packages/zhouli/test-pkg -H "$FAUTH")"
-check "空间管理员可见受限包" '"accessLevel":"Restricted"' "$(curl -s $BASE/api/packages/zhouli/test-pkg -H "$AUTH")"
+check "非空间成员看不到受限包" 'FORBIDDEN' "$(curl -s $BASE/api/packages/zhangsan/test-pkg -H "$FAUTH")"
+check "空间管理员可见受限包" '"accessLevel":"Restricted"' "$(curl -s $BASE/api/packages/zhangsan/test-pkg -H "$AUTH")"
 check "访客无发布权限" 'FORBIDDEN' "$(curl -s -X POST $BASE/api/packages/qa/unified-testcase-generator/versions -H "$UAUTH" -F version=0.0.2 -F platform=any -F arch=any -F file=@package.json)"
 check "内置空间禁止删除" 'PROTECTED' "$(curl -s -X DELETE $BASE/api/namespaces/global -H "$AUTH")"
 

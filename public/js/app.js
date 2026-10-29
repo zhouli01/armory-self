@@ -31,7 +31,7 @@ function renderLogin(prefill = '') {
         ${formItemLocal('密码', input({ name: 'password', type: 'password', placeholder: '请输入密码', attrs: 'autocomplete="current-password"' }))}
         <button class="ant-btn ant-btn-primary ant-btn-lg ant-btn-block" id="login-btn" style="margin-top:8px">登 录</button>
       </div>
-      <p class="aco-text-description" style="margin-top:16px;font-size:12px">演示账号：admin / admin123 · zhouli / user123</p>
+      <p class="aco-text-description" style="margin-top:16px;font-size:12px">演示账号：admin / admin123 · zhangsan / user123</p>
     </div>
   </div>`;
 

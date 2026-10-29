@@ -88,7 +88,7 @@ server.listen(config.PORT, config.HOST, () => {
   console.log(`  数据文件:  ${config.DB_FILE}`);
   console.log(`  制品目录:  ${config.STORAGE_DIR}`);
   console.log(`  已有数据:  ${db.namespaces.length} 个空间 / ${pkgCount} 个软件包 / ${verCount} 个版本`);
-  console.log('  默认账号:  admin / admin123（管理员）  zhouli / user123');
+  console.log('  默认账号:  admin / admin123（管理员）  zhangsan / user123');
   console.log('  ------------------------------------------');
   console.log('  Ctrl+C 停止服务');
   console.log('');

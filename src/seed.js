@@ -222,7 +222,7 @@ const PACKAGE_SPECS = [
     ],
   },
   {
-    namespace: 'zhouli',
+    namespace: 'zhangsan',
     name: 'test-pkg',
     description: '联调用测试软件包',
     accessLevel: 'Restricted',
@@ -233,7 +233,7 @@ const PACKAGE_SPECS = [
     ],
   },
   {
-    namespace: 'zhouli',
+    namespace: 'zhangsan',
     name: 'create1',
     description: '从界面创建的演示软件包，用于验证命名空间下的自助发布流程',
     accessLevel: 'Open',
@@ -272,9 +272,9 @@ function buildSeedDb() {
   /* ---------------- 用户 ---------------- */
   const users = [
     makeUser(1, 'admin', '管理员', 'ADMIN', 'admin123', 222),
-    makeUser(2, 'zhouli', '周立', 'USER', 'user123', 264),
-    makeUser(3, 'fanwenting', '范文婷', 'USER', 'user123', 150),
-    makeUser(4, 'liupeidong', '刘沛东', 'USER', 'user123', 32),
+    makeUser(2, 'zhangsan', '张三', 'USER', 'user123', 264),
+    makeUser(3, 'lisi', '李四', 'USER', 'user123', 150),
+    makeUser(4, 'wangwu', '王五', 'USER', 'user123', 32),
     makeUser(5, 'qa-bot', '质量保障', 'USER', 'user123', 96),
   ];
   const U = Object.fromEntries(users.map((u) => [u.username, u]));
@@ -285,16 +285,16 @@ function buildSeedDb() {
     { namespaceId: 'sylixos-middleware', type: 'ORG', description: 'SylixOS 中间件软件包空间' },
     { namespaceId: 'edge-computing', type: 'ORG', description: '边缘计算与云枢相关组件' },
     { namespaceId: 'qa', type: 'ORG', description: '自动化测试与质量工程制品' },
-    { namespaceId: 'zhouli', type: 'USER', description: null },
+    { namespaceId: 'zhangsan', type: 'USER', description: null },
   ];
   const namespaces = [];
   const namespaceMembers = [];
   const memberSpec = {
-    global: [['admin', 'ORG_OWNER'], ['zhouli', 'ORG_MEMBER']],
-    'sylixos-middleware': [['admin', 'ORG_OWNER'], ['fanwenting', 'ORG_ADMIN'], ['liupeidong', 'ORG_MEMBER']],
-    'edge-computing': [['admin', 'ORG_OWNER'], ['liupeidong', 'ORG_ADMIN'], ['fanwenting', 'ORG_MEMBER']],
-    qa: [['admin', 'ORG_OWNER'], ['qa-bot', 'ORG_ADMIN'], ['zhouli', 'ORG_GUEST']],
-    zhouli: [['zhouli', 'ORG_OWNER']],
+    global: [['admin', 'ORG_OWNER'], ['zhangsan', 'ORG_MEMBER']],
+    'sylixos-middleware': [['admin', 'ORG_OWNER'], ['lisi', 'ORG_ADMIN'], ['wangwu', 'ORG_MEMBER']],
+    'edge-computing': [['admin', 'ORG_OWNER'], ['wangwu', 'ORG_ADMIN'], ['lisi', 'ORG_MEMBER']],
+    qa: [['admin', 'ORG_OWNER'], ['qa-bot', 'ORG_ADMIN'], ['zhangsan', 'ORG_GUEST']],
+    zhangsan: [['zhangsan', 'ORG_OWNER']],
   };
 
   nsSpec.forEach((spec) => {
@@ -303,7 +303,7 @@ function buildSeedDb() {
       namespaceId: spec.namespaceId,
       type: spec.type,
       description: spec.description,
-      createUserId: spec.namespaceId === 'zhouli' ? U.zhouli.id : U.admin.id,
+      createUserId: spec.namespaceId === 'zhangsan' ? U.zhangsan.id : U.admin.id,
       createTime: fmtTime(daysAgoDate(90 - namespaces.length * 3, 10, 12)),
       settings: { publishConfirmation: spec.namespaceId === 'sylixos-middleware' },
     };
@@ -333,7 +333,7 @@ function buildSeedDb() {
       description: spec.description,
       accessLevel: spec.accessLevel,
       admins: [creatorUser.id],
-      watchers: spec.accessLevel === 'Open' ? [U.zhouli.id] : [],
+      watchers: spec.accessLevel === 'Open' ? [U.zhangsan.id] : [],
       status: 'OK',
       defaultVersion: null,
       tags: spec.tags,
@@ -431,8 +431,8 @@ function buildSeedDb() {
   });
 
   pushAudit(daysAgoDate(6, 10, 22), 'ADD_ORG_MEMBER', 'NAMESPACE', 'qa', '添加成员 qa-bot（管理员）', U.admin);
-  pushAudit(daysAgoDate(5, 16, 8), 'CHANGE_PKG_ACCESS_LEVEL', 'PACKAGE', '@zhouli/test-pkg', '访问级别调整为 Restricted', U.admin);
-  pushAudit(daysAgoDate(4, 11, 35), 'ADD_TAG', 'PACKAGE', '@sylixos-middleware/lwjson', '新增标签 embedded', U.fanwenting);
+  pushAudit(daysAgoDate(5, 16, 8), 'CHANGE_PKG_ACCESS_LEVEL', 'PACKAGE', '@zhangsan/test-pkg', '访问级别调整为 Restricted', U.admin);
+  pushAudit(daysAgoDate(4, 11, 35), 'ADD_TAG', 'PACKAGE', '@sylixos-middleware/lwjson', '新增标签 embedded', U.lisi);
   pushAudit(daysAgoDate(2, 9, 3), 'UPDATE_README', 'PACKAGE', '@global/armory-cli', '更新 README', U.admin);
 
   audits.sort((a, b) => String(b.time).localeCompare(String(a.time)));

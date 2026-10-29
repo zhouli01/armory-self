@@ -441,7 +441,7 @@ function buildIssues() {
       contact: 'zhangwei@example.com',
       status: 'OPEN',
       comments: [
-        { username: 'fanwenting', realName: '范文婷', body: '已经定位到打包脚本遗漏了 lib 目录，下一个补丁版本修复。' },
+        { username: 'lisi', realName: '李四', body: '已经定位到打包脚本遗漏了 lib 目录，下一个补丁版本修复。' },
       ],
     },
     {
@@ -453,7 +453,7 @@ function buildIssues() {
       status: 'CLOSED',
       comments: [
         { username: 'admin', realName: '管理员', body: '已记录需求，纳入下个迭代评估。' },
-        { username: 'fanwenting', realName: '范文婷', body: '收到，感谢反馈。' },
+        { username: 'lisi', realName: '李四', body: '收到，感谢反馈。' },
       ],
     },
   ];

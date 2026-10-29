@@ -20,8 +20,8 @@ npm start          # 或 node server.js
 | 账号 | 密码 | 角色 |
 | --- | --- | --- |
 | `admin` | `admin123` | 系统管理员（level 50） |
-| `zhouli` | `user123` | 空间所有者（ORG_OWNER） |
-| `fanwenting` | `user123` | 普通成员（ORG_MEMBER） |
+| `zhangsan` | `user123` | 空间所有者（ORG_OWNER） |
+| `lisi` | `user123` | 普通成员（ORG_MEMBER） |
 
 首次启动会按 `src/seed.js` 生成同构示例数据：5 个命名空间、12 个软件包、18 个版本、30 个制品。
 
